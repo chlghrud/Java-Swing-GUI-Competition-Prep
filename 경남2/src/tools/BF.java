@@ -39,7 +39,7 @@ public class BF extends JFrame {
 	}
 	
 	public static ImageIcon getImageicon(String path, int w, int h) {
-		return new ImageIcon(new ImageIcon(path.replaceAll("/충북2", ".")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+		return new ImageIcon(new ImageIcon(path.replaceAll("/경남2", ".")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
 	}
 
 	public boolean errMes(boolean b, String text) {
