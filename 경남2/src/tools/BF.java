@@ -19,22 +19,26 @@ public class BF extends JFrame {
 	public BF() {
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.white);
+		setIconImage(getImageicon("/경남2/datafiles/icon/icon.png", 30, 30).getImage());
 		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				control();
-				setLocationRelativeTo(null);
-				setVisible(true);
-				setTitle(tag);
-			}
 			@Override
 			public void windowClosed(WindowEvent e) {
 				forms.stream().filter(f -> f.tag.equals(befTag)).findFirst().ifPresent(f -> f.setVisible(true));
 			}
 		});
 	}
+	public void showForm() {
+		try {
+			view(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		setLocationRelativeTo(null);
+		setTitle(tag);
+		setVisible(true);
+	}
 
-	public void control() {
+	public void view() throws Exception{
 		
 	}
 	

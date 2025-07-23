@@ -56,7 +56,7 @@ public class 점확대 extends BF {
 		panel.setLayout(null);
 		setMap();
 	}
-	
+
 	private void startZoom() {
 		new Timer(1, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
