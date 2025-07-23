@@ -1,0 +1,9 @@
+u_no	u_name	u_id	u_pw	u_phone
+1	홍길동	user01	user01!	1999-02-05
+2	나순자	user02	user02!	1999-02-06
+3	이순자	user03	user03!	1999-02-07
+4	홍길순	user04	user04!	1999-02-08
+5	홍길자	user05	user05!	1999-02-09
+6	홍순자	user06	user06!	1999-02-10
+7	길동이	user07	user07!	1999-02-11
+8	막뚱이	user08	user08!	1999-02-12
