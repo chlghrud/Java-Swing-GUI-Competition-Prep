@@ -124,7 +124,7 @@ public class 버블차트 extends BF {
 					int y = r.nextInt((int) (jp.getHeight() - b1.width));
 					Point r1 = new Point((int) (x + b1.width / 2), (int) (y + b1.width / 2));
 
-					for (Bubble b2 : bubbles.stream().filter(b -> b != b1).collect(Collectors.toList())) {
+					for (Bubble b2 : bubbles) {
 						Point r2 = new Point((int) (b2.x + b2.width / 2), (int) (b2.y + b2.width / 2));
 						double r3 = r1.distance(r2);
 						if (r3 < b1.width / 2 + b2.width / 2) {

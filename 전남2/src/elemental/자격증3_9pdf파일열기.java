@@ -1,4 +1,4 @@
-package 전남2요소;
+package elemental;
 
 import java.awt.EventQueue;
 

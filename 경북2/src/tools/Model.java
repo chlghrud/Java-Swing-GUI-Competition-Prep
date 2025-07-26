@@ -14,7 +14,7 @@ public class Model {
 			con = DriverManager.getConnection("jdbc:mysql://localhost?serverTimezone=UTC&allowLoadLocalInfile=true",
 					"root", "1234");
 			stmt = con.createStatement();
-			stmt.execute("use ");
+			stmt.execute("use roupang;");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

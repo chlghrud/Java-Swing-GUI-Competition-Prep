@@ -4,59 +4,53 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.RGBImageFilter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+
 
 public class BF extends JFrame {
-	private static ArrayList<BF> forms = new ArrayList<BF>();
-	public String tag, befTag;
+	public BF beforeForm, nowForm;
+	public Image base = BP.getImageicon("./datafiles/logo/유저.png", 40, 40).getImage();
 	
-
-
 	public BF() {
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.white);
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowOpened(WindowEvent e) {
-				control();
-				setLocationRelativeTo(null);
-				setVisible(true);
-				setTitle(tag);
-			}
-			@Override
 			public void windowClosed(WindowEvent e) {
-				forms.stream().filter(f -> f.tag.equals(befTag)).findFirst().ifPresent(f -> f.setVisible(true));
+				if(beforeForm != null)
+					beforeForm.setVisible(true);
 			}
 		});
 	}
-
-	public void control() {
-		
+	public void setUser() {
+		Color c = BP.LoginUser == null ? Color.gray: BP.LoginUser.uid.equals("admin") ? Color.red : Color.blue;
+		Image img = createImage(new FilteredImageSource(base.getSource(), new RGBImageFilter() {
+			@Override
+			public int filterRGB(int x, int y, int rgb) {
+				return(rgb & 0xff0000) == 0x00000000 ? rgb : (rgb & 0xff000000) | c.getRGB();
+			}
+		}));
+		JLabel icon = new JLabel();
+		icon.setIcon(new ImageIcon(img));
+		icon.setBounds(getWidth() - 80, 0, 40, 50);
+		JLabel name = new JLabel();
+		name.setBounds(getWidth() - 80 + 2, 20, 40, 50); // 2는 보정값
+		name.setText(BP.LoginUser == null ? "" : BP.LoginUser.uname);
+		getContentPane().add(icon);
+		getContentPane().add(name);
 	}
-	
-	public static ImageIcon getImageicon(String path, int w, int h) {
-		return new ImageIcon(new ImageIcon(path.replaceAll("/충북2", ".")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+	public void showForm() {
+		setLocationRelativeTo(null);
+		setUser();
+		setVisible(true);
 	}
-
-	public boolean errMes(boolean b, String text) {
-		if (b)
-			JOptionPane.showMessageDialog(null, text, "경고", 0);
-		return b;
-	}
-
-	public boolean mes(boolean b, String text) {
-		if (b)
-			JOptionPane.showMessageDialog(null, text, "정보¸", 1);
-		return b;
-	}
-
 	public void formOpen(BF uf) {
-		befTag = uf.tag;
-		forms.add(uf);
+		setVisible(false);
+		uf.beforeForm = nowForm;
 	}
-
 }

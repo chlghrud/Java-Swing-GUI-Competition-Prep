@@ -26,9 +26,9 @@ import java.awt.event.ActionEvent;
 public class 배송정보깜빡임 extends BF {
 	private JPanel jp;
 	private int select = 1;
-	private JButton button;
 	private BufferedImage[] selectedImages = new BufferedImage[3];
 	private BufferedImage[] unselectedImages = new BufferedImage[3];
+	private JButton button;
 
 	/**
 	 * Launch the application.
