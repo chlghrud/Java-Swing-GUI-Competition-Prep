@@ -32,6 +32,7 @@ public class BrandInfo extends BF {
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(2);
 		showForm();
+		System.out.println(bno);
 	}
 
 }

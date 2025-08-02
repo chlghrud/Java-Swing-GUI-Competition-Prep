@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import tools.Model.user;
 
 public class BF extends JFrame {
-	private static ArrayList<BF> forms = new ArrayList<BF>();
-	public String tag, befTag, logoT;
+	public String tag, logoT;
+	public BF beforeForm, nowForm;
 	public boolean addLogo = false;
 	public static user LoginUser;
 
@@ -27,7 +27,8 @@ public class BF extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				forms.stream().filter(f -> f.tag.equals(befTag)).findFirst().ifPresent(f -> f.setVisible(true));
+				if(beforeForm != null)
+					beforeForm.setVisible(true);
 			}
 		});
 	}
@@ -73,8 +74,8 @@ public class BF extends JFrame {
 	}
 
 	public void formOpen(BF uf) {
-		befTag = uf.tag;
-		forms.add(uf);
+		setVisible(false);
+		uf.beforeForm = nowForm;
 	}
 
 }

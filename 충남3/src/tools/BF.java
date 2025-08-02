@@ -4,42 +4,47 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class BF extends JFrame {
-	private static ArrayList<BF> forms = new ArrayList<BF>();
-	public String tag, befTag;
+	public String tag;
+	public BF beforeForm, nowForm;
 	
 
 
 	public BF() {
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.white);
+		setIconImage(getImageicon("/경남2/datafiles/icon/icon.png", 30, 30).getImage());
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowOpened(WindowEvent e) {
-				control();
-				setLocationRelativeTo(null);
-				setVisible(true);
-				setTitle(tag);
-			}
-			@Override
 			public void windowClosed(WindowEvent e) {
-				forms.stream().filter(f -> f.tag.equals(befTag)).findFirst().ifPresent(f -> f.setVisible(true));
+				if(beforeForm != null)
+					beforeForm.setVisible(true);
 			}
 		});
 	}
+	public void showForm() {
+		try {
+			view(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		setIconImage(getImageicon("/충남3/datafiles/icon/로고.png", 30	, 30).getImage());
+		setLocationRelativeTo(null);
+		setTitle(tag);
+		setVisible(true);
+	}
 
-	public void control() {
+	public void view() throws Exception{
 		
 	}
 	
 	public static ImageIcon getImageicon(String path, int w, int h) {
-		return new ImageIcon(new ImageIcon(path.replaceAll("/충북2", ".")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+		return new ImageIcon(new ImageIcon(path.replaceAll("/충남3", ".")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
 	}
 
 	public boolean errMes(boolean b, String text) {
@@ -55,8 +60,8 @@ public class BF extends JFrame {
 	}
 
 	public void formOpen(BF uf) {
-		befTag = uf.tag;
-		forms.add(uf);
+		setVisible(false);
+		uf.beforeForm = nowForm;
 	}
 
 }

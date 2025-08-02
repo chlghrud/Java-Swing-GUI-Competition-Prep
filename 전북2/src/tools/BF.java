@@ -1,18 +1,24 @@
 package tools;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import tools.Model.user;
+
 public class BF extends JFrame {
-	private static ArrayList<BF> forms = new ArrayList<BF>();
-	public String tag, befTag;
+	public String tag, logoT;
+	public BF beforeForm, nowForm;
+	public static user LoginUser = new user(1, "김민지", "user01", "user01!", new Point(271, 264));
 	
 
 
@@ -21,20 +27,24 @@ public class BF extends JFrame {
 		getContentPane().setBackground(Color.white);
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowOpened(WindowEvent e) {
-				control();
-				setLocationRelativeTo(null);
-				setVisible(true);
-				setTitle(tag);
-			}
-			@Override
 			public void windowClosed(WindowEvent e) {
-				forms.stream().filter(f -> f.tag.equals(befTag)).findFirst().ifPresent(f -> f.setVisible(true));
+				if(beforeForm != null)
+					beforeForm.setVisible(true);
 			}
 		});
 	}
-
-	public void control() {
+	public void setForm() {
+		try {
+			view(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		setLocationRelativeTo(null);
+		setTitle(tag);
+		setIconImage(getImageicon("/전북2/datafiles/logo.png", 10	, 10).getImage());
+		setVisible(true);
+	}
+	public void view() throws Exception {
 		
 	}
 	
@@ -55,8 +65,8 @@ public class BF extends JFrame {
 	}
 
 	public void formOpen(BF uf) {
-		befTag = uf.tag;
-		forms.add(uf);
+		setVisible(false);
+		uf.beforeForm = nowForm;
 	}
 
 }

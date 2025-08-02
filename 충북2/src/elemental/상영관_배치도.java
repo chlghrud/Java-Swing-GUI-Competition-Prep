@@ -30,7 +30,7 @@ public class 상영관_배치도 extends JFrame {
 	public 상영관_배치도() {
 		ui();
 		getData();
-		mapLoad(3);
+		mapLoad(6);
 		setVisible(true);
  	}
 	

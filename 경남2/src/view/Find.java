@@ -107,34 +107,46 @@ public class Find extends BF {
 		    });
 		    th.start();
 	}
+	private Point getScaledPoint(Point p) {
+	    int tx = cp != null ? (int)(300 - scale * cp.x) : 0;
+	    int ty = cp != null ? (int)(275 - scale * cp.y) : 0;
 
+	    // 마우스 좌표에서 translate 역변환 후 scale 역변환
+	    double x = (p.x - tx) / scale;
+	    double y = (p.y - ty) / scale;
+	    return new Point((int)x, (int)y);
+	}
 	@Override
 	public void view() throws Exception {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				boolean isD = e.getClickCount() == 2;
-				for (BrandBoolit point : points) {
-					if (e.getPoint().distance(point) < 8) {
-						cp = point;
-						if (isD) {
-							stop = true;
-							cp = null;
-							scale = 1.0;
-							repaint();
-							formOpen(new BrandInfo(point.bno));
-						} else
-							startZoom();
-
-						break;
-					}
+			        boolean isD = e.getClickCount() >= 2;
+			        for (BrandBoolit point : points) {
+			            if (e.getPoint().distance(point) < 8) {
+			                cp = point;
+			                if (isD) {
+			                    stop = true;
+			                    cp = null;
+			                    scale = 1.0;
+			                    repaint();
+			                    formOpen(new BrandInfo(point.bno));
+			                } else {
+			                    startZoom();
+			                }
+			                break;
+			            }
 				}
 			}
 		});
 		panel.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				 points.stream().filter(p -> e.getPoint().distance(p) < 8).findFirst().ifPresent(p -> panel.setToolTipText(p.brandName));
+				 Point hover = getScaledPoint(e.getPoint());
+			        points.stream()
+			            .filter(p -> hover.distance(p) < 8)
+			            .findFirst()
+			            .ifPresent(p -> panel.setToolTipText(p.brandName));
 			}
 		});
 		var rs = Model.stmt.executeQuery("select * from category;");
@@ -170,8 +182,7 @@ public class Find extends BF {
 		try (var rs = Model.stmt.executeQuery("select * from brand join category using(cno) "
 				+ (category.equals("전체") ? "" : "where cname like '%" + category + "%'"))) {
 			while (rs.next())
-				points.add(
-						new BrandBoolit(rs.getInt("bxx"), rs.getInt("byy"), rs.getString("bname"), rs.getInt("bno")));
+				points.add( new BrandBoolit(rs.getInt("bxx"), rs.getInt("byy"), rs.getString("bname"), rs.getInt("bno")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

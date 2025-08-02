@@ -30,7 +30,7 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-	class user {
+	public class user {
 		public int uno;
 		public String uname, ueng, id, pw, card, birth, gender, certy, address;
 		public user(int uno) {

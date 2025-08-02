@@ -77,7 +77,7 @@ public class Frame_ extends BF {
 	
 	private void view() {
 		String []names;
-		if(BP.LoginUser.uid.equals("admin"))
+		if(BP.LoginUser != null && BP.LoginUser.uid.equals("admin"))
 			names = "메인,검색,등록,배송처리,분석".split(",");
 		else
 			names = "메인,검색,장바구니,구매목록,배송정보".split(",");
